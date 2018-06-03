@@ -1,18 +1,15 @@
 //import the express library
 const express = require("express");
+//import passport file - since passport doesnt return anything it just needs to run
+//we can just use require statement
+require("./services/passport");
 
 //create express application
 const app = express();
 
-//create route handler - associate with / route
-app.get("/", (req, res) => {
-
-  res.send({
-    bye: "buddy"
-  });
-
-});
-
+//call authRoutes with app object
+//require - retruns a function which we immediately call with the app object
+require('./routes/authRoutes')(app);
 
 //dynamic port binding for heroku
 //enviroment variables at runtime - heroku passes runtime port config
