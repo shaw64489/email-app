@@ -20,4 +20,18 @@ module.exports = (app) => {
   //GoogleStrategy doesnt send to oauth flow this time - it exchanges the code added
   //to the url to get the user profile
   app.get("/auth/google/callback", passport.authenticate("google"));
+
+  //whenever user makes request to this route - we log user out of app
+  app.get('/api/logout', (req, res) => {
+
+    //takes cookie and kills it
+    req.logout();
+    res.send(req.user);
+  });
+
+  //get api current user route
+  app.get('/api/current_user', (req, res) => {
+    res.send(req.user);
+  });
+
 };

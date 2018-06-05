@@ -1,11 +1,42 @@
 //import the express library
 const express = require("express");
+//import mongoose
+const mongoose = require('mongoose');
+//import cookie session
+const cookieSession = require('cookie-session');
+//import passport
+const passport = require('passport');
+//mongo keys
+const keys = require('./config/keys');
+//import user schema - create collection of users when app starts
+require("./models/User");
 //import passport file - since passport doesnt return anything it just needs to run
 //we can just use require statement
 require("./services/passport");
 
+
+//instruct mongoose to connect to mongodb
+//pass address of mongo instance - mongoURI
+mongoose.connect(keys.mongoURI);
+
 //create express application
 const app = express();
+
+//tell express to make use of cookies inside app
+//pass to function cookiesession
+//provide config object to cookie session
+app.use(
+    cookieSession({
+        //how long to exist in browser - 30 days
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        //key used to encrypt cookie
+        keys: [keys.cookieKey]
+    })
+);
+
+//tell passport to use cookies to handle authentication
+app.use(passport.initialize());
+app.use(passport.session());
 
 //call authRoutes with app object
 //require - retruns a function which we immediately call with the app object
