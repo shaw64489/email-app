@@ -37,13 +37,15 @@ passport.deserializeUser((id, done) => {
 //in function call - create new instance of google passport strategy
 //pass keys to google strategy
 //callback option passed - callbackURL - where user is routed to
+//proxy true - trust proxy to keep https status in prod
 //last arg passed - accessToken, refreshToken, profile, done
 passport.use(
     new GoogleStrategy(
       {
         clientID: keys.googleClientID,
         clientSecret: keys.googleClientSecret,
-        callbackURL: "/auth/google/callback"
+        callbackURL: "/auth/google/callback",
+        proxy: true
       },
       (accessToken, refreshToken, profile, done) => {
 
