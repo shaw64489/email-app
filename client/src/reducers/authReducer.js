@@ -2,7 +2,8 @@
 //second arg - action object
 export default function(state = {}, action) {
 
-    //
+    console.log(action);
+    
     switch (action.type) {
         //no change return state
         default: 
