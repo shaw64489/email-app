@@ -47,36 +47,28 @@ passport.use(
         callbackURL: "/auth/google/callback",
         proxy: true
       },
-      (accessToken, refreshToken, profile, done) => {
+      //contains async code - use async keyword
+      async (accessToken, refreshToken, profile, done) => {
 
         //initiate a search to see if user exists already
         //query returns a promise - handle async code
-        //chain then statement - function called with user found
-        User.findOne({ googleId: profile.id })
-          .then((existingUser) => {
-
-            //if we found an existing user
-            if(existingUser) {
-
-              //first arg is error - should be none
-              //second arg is user record found
-              done(null, existingUser);
-              
-            //else create a new user bc ID doesnt exist
-            } else {
-
-              //use model class to create instance of a user
-              //user with google ID
-              //get model instance to persist itself to collection (Mongo) – call function on that method
-              //we need to make sure user is created before calling done - chain then statement
-              new User({ googleId: profile.id })
-                .save()
-                //called with newly saved user
-                .then(user => done(null, user));
-
-            }
-
-          })
+        //await promise - store function called with user found
+        const existingUser = await User.findOne({ googleId: profile.id })
+        
+        //if we found an existing user
+        if(existingUser) {
+          //first arg is error - should be none
+          //second arg is user record found
+          return done(null, existingUser);
+        //else create a new user bc ID doesnt exist
+        } 
+        //use model class to create instance of a user
+        //user with google ID
+        //get model instance to persist itself to collection (Mongo) – call function on that method
+        //await store user created before calling done 
+        const user = await new User({ googleId: profile.id }).save();
+        done(null, user);
+        
       }
     )
   );
