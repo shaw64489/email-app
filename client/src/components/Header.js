@@ -12,13 +12,19 @@ class Header extends Component {
         switch(this.props.auth) {
             //null
             case null:
-                return 'Still deciding';
+                //return nothing
+                return;
             //false
             case false:
-                return 'Im logged out';
+                //link to login
+                return (
+                    <li><a href="/auth/google">Login with Google</a></li>
+                );
             //object - we are logged in
             default:
-                return 'Im logged in';
+                return (
+                    <li><a>Logout</a></li>
+                );
 
         }
     }

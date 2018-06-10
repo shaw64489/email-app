@@ -19,7 +19,15 @@ module.exports = (app) => {
   //use passport to take request and resolve into actual profile
   //GoogleStrategy doesnt send to oauth flow this time - it exchanges the code added
   //to the url to get the user profile
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  //after passport authenticate - redirect to some other route
+  app.get(
+    "/auth/google/callback", 
+    passport.authenticate("google"),
+    (req, res) => {
+      //redirect to surveys dashboard
+      res.redirect('/surveys')
+    }
+  );
 
   //whenever user makes request to this route - we log user out of app
   app.get('/api/logout', (req, res) => {
