@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router-dom';
+
 //create header class based component
 class Header extends Component {
 
@@ -31,14 +33,19 @@ class Header extends Component {
 
     //define render method
     //replace login if based on authentication status - call renderContent
+    //use link tag for react route on logo - ternary expression to decide if 
+    //user is logged in and where to route
     render() {
 
         return (
             <nav>
                 <div className="nav-wrapper">
-                    <a className="left brand-logo">
+                    <Link 
+                        to={this.props.auth ? '/surveys' : '/'} 
+                        className="left brand-logo"
+                    >
                         Emaily
-                    </a>
+                    </Link>
                     <ul className="right">
                         {this.renderContent()}
                     </ul>
