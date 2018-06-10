@@ -25,7 +25,7 @@ module.exports = (app) => {
     passport.authenticate("google"),
     (req, res) => {
       //redirect to surveys dashboard
-      res.redirect('/surveys')
+      res.redirect('/surveys');
     }
   );
 
@@ -34,7 +34,8 @@ module.exports = (app) => {
 
     //takes cookie and kills it
     req.logout();
-    res.send(req.user);
+    //redirect to root on logout
+    res.redirect('/');
   });
 
   //get api current user route

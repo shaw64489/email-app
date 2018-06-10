@@ -23,7 +23,7 @@ class Header extends Component {
             //object - we are logged in
             default:
                 return (
-                    <li><a>Logout</a></li>
+                    <li><a href="/api/logout">Logout</a></li>
                 );
 
         }

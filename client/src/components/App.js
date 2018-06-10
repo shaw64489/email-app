@@ -8,12 +8,13 @@ import * as actions from '../actions';
 
 //import header component
 import Header from "./Header";
+//import landing component 
+import Landing from "./Landing";
 //create functional app component - dashboard
 const Dashboard = () => <h2>Dashboard</h2>;
 //create functional app component - new survey
 const SurveyNew = () => <h2>SurveyNew</h2>;
-//create functional app component - landing
-const Landing = () => <h2>Landing</h2>;
+
 
 //create class app component
 class App extends Component {
