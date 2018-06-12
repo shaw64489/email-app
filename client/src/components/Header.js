@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
+import Payments from './Payments';
+
 //create header class based component
 class Header extends Component {
 
@@ -24,9 +26,10 @@ class Header extends Component {
                 );
             //object - we are logged in
             default:
-                return (
-                    <li><a href="/api/logout">Logout</a></li>
-                );
+                return [
+                    <li key="1"><Payments /></li>,
+                    <li key="2"><a href="/api/logout">Logout</a></li>
+                ]
 
         }
     }
