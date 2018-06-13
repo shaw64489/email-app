@@ -12,3 +12,13 @@ export const fetchUser = () => async dispatch => {
   //res.data is user data
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+//called with token from stripe api - handling stripe payments
+export const handleToken = token => async dispatch => {
+    //post request - send info to backend
+    //pass token from stripe
+    const res = await axios.post("/api/stripe", token);
+  
+    //res.data is user data - update user model in auth reducer
+    dispatch({ type: FETCH_USER, payload: res.data });
+  };

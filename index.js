@@ -41,6 +41,9 @@ app.use(passport.session());
 //call authRoutes with app object
 //require - retruns a function which we immediately call with the app object
 require('./routes/authRoutes')(app);
+//call billing routes with app object
+//require - retruns a function which we immediately call with the app object
+require('./routes/billingRoutes')(app);
 
 //dynamic port binding for heroku
 //enviroment variables at runtime - heroku passes runtime port config
