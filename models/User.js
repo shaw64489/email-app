@@ -8,7 +8,12 @@ const { Schema } = mongoose;
 //describe what records look like
 const userSchema = new Schema ({
 
-    googleId: String
+    googleId: String,
+    //survey credits bought - start with 0
+    credits: {
+        type: Number,
+        default: 0
+    }
 });
 
 //create model class - tell mongoose that collection needs to be created
