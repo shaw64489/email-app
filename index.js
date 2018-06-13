@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 //import passport
 const passport = require('passport');
+//import body parser
+const bodyParser = require('body-parser');
 //mongo keys
 const keys = require('./config/keys');
 //import user schema - create collection of users when app starts
@@ -21,6 +23,9 @@ mongoose.connect(keys.mongoURI);
 
 //create express application
 const app = express();
+
+//body parser middleware
+app.use(bodyParser.json());
 
 //tell express to make use of cookies inside app
 //pass to function cookiesession
