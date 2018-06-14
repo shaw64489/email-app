@@ -50,6 +50,21 @@ require('./routes/authRoutes')(app);
 //require - retruns a function which we immediately call with the app object
 require('./routes/billingRoutes')(app);
 
+//run inside of production
+if (process.env.NODE_ENV === 'production') {
+
+    //express will serve up production assets
+    //like main.js or main.css files
+    //if route handler is not set up - look here to see if it matches up
+    app.use(express.static('client/build'));
+
+    //express will serve up index html file if it doesnt recognize route
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
+
 //dynamic port binding for heroku
 //enviroment variables at runtime - heroku passes runtime port config
 //however if we are running in dev environment - like our machine - run boolean statement (5000)
