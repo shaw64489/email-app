@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 //import user schema - create collection of users when app starts
 require("./models/User");
+//import surveys schema - create collection of surveys when app starts
+require("./models/Survey");
 //import passport file - since passport doesnt return anything it just needs to run
 //we can just use require statement
 require("./services/passport");
