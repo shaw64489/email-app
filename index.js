@@ -51,6 +51,9 @@ require('./routes/authRoutes')(app);
 //call billing routes with app object
 //require - retruns a function which we immediately call with the app object
 require('./routes/billingRoutes')(app);
+//call survey routes with app object
+//require - retruns a function which we immediately call with the app object
+require('./routes/surveyRoutes')(app);
 
 //run inside of production
 if (process.env.NODE_ENV === 'production') {
