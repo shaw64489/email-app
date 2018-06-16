@@ -24,6 +24,13 @@ module.exports = app => {
             title,
             subject,
             body,
+            //split recipients by comma - array of strings
+            //map - for every email address return new object that has an email of email
+            recipients: recipients.split(',').map(email => ({ email: email.trim() })),
+            //user id
+            _user: req.user.id,
+            //date sent
+            dateSent: Date.now()
 
         });
 
