@@ -17,7 +17,12 @@ const surveySchema = new Schema ({
     //recipients list - array of RecipientSchema
     recipients: [RecipientSchema],
     yes: { type: Number, default: 0 },
-    no: { type: Number, default: 0 }
+    no: { type: Number, default: 0 },
+    //reference to user - relationship
+    //every survey belongs to a user
+    _user: { type: Schema.Types.ObjectId, ref: 'User' },
+    dateSent: Date,
+    lastResponded: Date
 });
 
 //create model class - tell mongoose that collection needs to be created
