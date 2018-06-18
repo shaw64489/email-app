@@ -13,6 +13,9 @@ class Mailer extends helper.Mail {
         //extend mail class
         super();
 
+        //use sendgrid object and pass api key - returns object to communicate to api
+        this.sgApi = sendGrid(keys.sendGridKey);
+
         //who the email is sent from
         this.from_email = new helper.Email('no-reply@emaily.com');
         //subject line
@@ -28,7 +31,7 @@ class Mailer extends helper.Mail {
         //enable click tracking inside the email
         this.addClickTracking();
 
-        //
+        //add recipient setup
         this.addRecipients();
     }
 
@@ -53,6 +56,30 @@ class Mailer extends helper.Mail {
         this.addTrackingSettings(trackingSettings)
     }
 
+    //adding recipients 
+    addRecipients() {
+
+        const personalize = new helper.Personalization()
+        //iterate over list of recipients - for each recipient take and add to personalize object
+        this.recipients.forEach(recipient => {
+            personalize.addTo(recipient)
+        });
+        //defined by Mail base class - add personalize object
+        this.addPersonalization(personalize);
+    }
+
+    //function to send mailer to sendgrid api
+    async send() {
+
+        const request = this.sgApi.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            body: this.toJSON()
+        });
+
+        //send off request
+        this.sgApi.API(request);
+    }
 }
 
 module.exports = Mailer;
