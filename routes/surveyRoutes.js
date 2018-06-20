@@ -43,6 +43,9 @@ module.exports = app => {
         //second arg - what html should be shown inside the email - pass survey object to template
         const mailer = new Mailer(survey, surveyTemplate(survey));
 
+        //send mailer
+        mailer.send();
+
     });
 
 };
