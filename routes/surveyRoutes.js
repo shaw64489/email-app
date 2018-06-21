@@ -13,6 +13,11 @@ const Survey = mongoose.model('surveys');
 
 module.exports = app => {
 
+    //route for users that click on feedback link
+    app.get('/api/surveys/thanks', (req, res) => {
+        res.send('Thanks for voting!');
+    });
+
     //post - create survey route
     //make sure user is logged in - middleware
     //make sure user has enough credits - middleware
