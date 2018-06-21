@@ -16,7 +16,7 @@ module.exports = app => {
     //post - create survey route
     //make sure user is logged in - middleware
     //make sure user has enough credits - middleware
-    app.post('/api/surveys', requireLogin, requireCredits, (req, res) => {
+    app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
 
         //store fields from req body
         const { title, subject, body, recipients  } = req.body;
@@ -43,8 +43,22 @@ module.exports = app => {
         //second arg - what html should be shown inside the email - pass survey object to template
         const mailer = new Mailer(survey, surveyTemplate(survey));
 
-        //send mailer
-        mailer.send();
+        //if anything goes wrong - catch request and send back a response
+        try {
+        //send mailer - async function - need to wait to finish before saving
+        await mailer.send();
+        //save survey
+        await survey.save();
+        //subtract credit from user and update user
+        req.user.credits -= 1;
+        const user = await req.user.save();
+
+        //send back updated user model
+        res.send(user);
+        } catch (err) {
+            //something wrong with data - send back 
+            res.status(422).send(err);
+        }
 
     });
 

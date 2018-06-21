@@ -9,7 +9,11 @@ import reduxThunk from 'redux-thunk';
 //import app component
 import App from './components/App';
 //import for reducers
-import reducers from './reducers'
+import reducers from './reducers';
+
+//dev only testing
+import axios from 'axios';
+window.axios = axios;
 
 //create store helper to create new instance of redux store
 //pass reducers 
