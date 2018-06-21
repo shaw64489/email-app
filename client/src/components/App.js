@@ -10,8 +10,8 @@ import * as actions from '../actions';
 import Header from "./Header";
 //import landing component 
 import Landing from "./Landing";
-//create functional app component - dashboard
-const Dashboard = () => <h2>Dashboard</h2>;
+//import dashboard component 
+import Dashboard from "./Dashboard";
 //create functional app component - new survey
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
