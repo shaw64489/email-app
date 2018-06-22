@@ -12,8 +12,8 @@ import Header from "./Header";
 import Landing from "./Landing";
 //import dashboard component 
 import Dashboard from "./Dashboard";
-//create functional app component - new survey
-const SurveyNew = () => <h2>SurveyNew</h2>;
+//import survey new component 
+import SurveyNew from "./surveys/SurveyNew";
 
 
 //create class app component
