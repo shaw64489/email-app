@@ -2,11 +2,18 @@
 
 import React from 'react';
 
-export default () => {
+//our custom form field
+//props from redux form - input property from props
+export default ({ input, label, meta: { error, touched } }) => {
 
+    
+    //input - a lot of props in input - give object with all keys and values in it
+    //label provided by parent component so its reusable - passed prop called label
     return (
         <div>
-            <input />
+            <label>{label}</label>
+            <input {...input} />
+            {touched && error}
         </div>
     );
 };
