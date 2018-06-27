@@ -5,14 +5,40 @@ import React, { Component } from 'react';
 //import survey form
 import SurveyForm from './SurveyForm';
 
+//import survey form review
+import SurveyFormReview from './SurveyFormReview';
+
 class SurveyNew extends Component {
 
+    //create component state
+    //assigning state object - intial state false
+    state = { showFormReview: false };
+
+    //helper method
+    renderContent() {
+
+        //if state showformreview is true
+        //retrun surveyformreview component
+        if (this.state.showFormReview) {
+
+            return <SurveyFormReview />;
+        }
+
+        //if false return SurveyForm
+        //add callback onsurveysubmit
+        //when submitting for state changes
+        return <SurveyForm 
+                onSurveySubmit={() => this.setState({ showFormReview: true })} 
+                />;
+    }
+
+    //use render content helper to determine state and show component
     render() {
 
         return(
 
             <div>
-                <SurveyForm />
+                {this.renderContent()}
             </div>
 
         ); 
