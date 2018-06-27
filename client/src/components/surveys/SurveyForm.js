@@ -8,6 +8,8 @@ import { reduxForm, Field } from "redux-form";
 import { Link } from 'react-router-dom';
 import SurveyField from "./SurveyField";
 
+import validateEmails from '../../utils/validateEmails';
+
 //fields array to hold field info
 const FIELDS = [
     { label: 'Survey Title', name: 'title' },
@@ -52,17 +54,24 @@ function validate(values) {
 
     const errors = {};
 
-    //look at values obj - if no title
-    if (!values.title) {
-        errors.title = 'You must provide a title';
-    }
+    errors.emails = validateEmails(values.emails || '');
 
+    //lodash - iterate over fields object
+    _.each(FIELDS, ({ name }) => {
+
+        //if value name is empty
+        if(!values[name]) {
+            //add one to the errors object
+            errors[name] = 'You must provide a value';
+        }
+    });
 
     //if redux form gets this error obj back and its empty
     //assumes entire form is valid
     return errors;
 
 }
+
 
 //reduxForm options used to customize how form behaves
 //option - form
