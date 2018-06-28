@@ -11,12 +11,7 @@ import SurveyField from "./SurveyField";
 import validateEmails from '../../utils/validateEmails';
 
 //fields array to hold field info
-const FIELDS = [
-    { label: 'Survey Title', name: 'title' },
-    { label: 'Subject Line', name: 'subject' },
-    { label: 'Email Body', name: 'body' },
-    { label: 'Recipient List', name: 'emails' }
-]
+import formFields from './formFields';
 
 class SurveyForm extends Component {
   //funtion to handle rendering fields in form
@@ -24,7 +19,7 @@ class SurveyForm extends Component {
   //two props dont change - component and type
   //unique key prop
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
         return ( 
             <Field key={name} component={SurveyField} type="text"  label={label} name={name} />
         )
@@ -58,7 +53,7 @@ function validate(values) {
     errors.emails = validateEmails(values.emails || '');
 
     //lodash - iterate over fields object
-    _.each(FIELDS, ({ name }) => {
+    _.each(formFields, ({ name }) => {
 
         //if value name is empty
         if(!values[name]) {
@@ -77,7 +72,9 @@ function validate(values) {
 //reduxForm options used to customize how form behaves
 //option - form
 //option - validate - for form validation
+//destoyOnUnmount - dont kill when moving form offscreen
 export default reduxForm({
     validate,
-    form: "surveyForm"
+    form: "surveyForm",
+    destroyOnUnmount: false
 })(SurveyForm);

@@ -19,9 +19,12 @@ class SurveyNew extends Component {
 
         //if state showformreview is true
         //retrun surveyformreview component
+        //oncancel - if user clicks on button - flip state
         if (this.state.showFormReview) {
 
-            return <SurveyFormReview />;
+            return <SurveyFormReview 
+                onCancel={() =>  this.setState({ showFormReview: false })}
+            />;
         }
 
         //if false return SurveyForm
