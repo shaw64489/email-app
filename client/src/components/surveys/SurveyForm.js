@@ -50,7 +50,7 @@ function validate(values) {
 
     const errors = {};
 
-    errors.emails = validateEmails(values.emails || '');
+    errors.recipients = validateEmails(values.recipients || '');
 
     //lodash - iterate over fields object
     _.each(formFields, ({ name }) => {

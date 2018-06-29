@@ -7,8 +7,13 @@ import { connect } from 'react-redux';
 //import survey fields
 import formFields from './formFields';
 
+//import action for submitting survey
+import * as actions from '../../actions';
+import { submitSurvey } from '../../actions';
+
 //prop - oncancel - for cancel button
-const SurveyFormReview = ({ onCancel, formValues }) => {
+//submitSurvey action passed as prop
+const SurveyFormReview = ({ onCancel, formValues, submitSurvey }) => {
 
     //define fields to insert into return statement
     //for every element in form fields
@@ -32,10 +37,17 @@ const SurveyFormReview = ({ onCancel, formValues }) => {
             <h5>Please confirm your entries</h5>
             {reviewFields}
             <button
-                className="yellow darken-3 btn-flat"
+                className="yellow darken-3 white-text btn-flat"
                 onClick={onCancel}
             >
                 Back
+            </button>
+            <button 
+                className="green white-text btn-flat right"
+                onClick={() => submitSurvey(formValues)}
+            >
+                Send Survey
+                <i className="material-icons right">email</i>
             </button>
         </div>
     );
@@ -53,4 +65,5 @@ function mapStateToProps(state) {
 
 
 //conect to pull values out of redux store
-export default connect(mapStateToProps)(SurveyFormReview);
+//second arg - list of actions
+export default connect(mapStateToProps, actions)(SurveyFormReview);

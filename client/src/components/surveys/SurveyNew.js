@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import { reduxForm } from 'redux-form';
+
 //import survey form
 import SurveyForm from './SurveyForm';
 
@@ -48,4 +50,7 @@ class SurveyNew extends Component {
     }
 }
 
-export default SurveyNew;
+//hook up redux form helper
+export default reduxForm({
+    form: 'surveyForm'
+})(SurveyNew);

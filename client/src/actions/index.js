@@ -21,4 +21,15 @@ export const handleToken = token => async dispatch => {
   
     //res.data is user data - update user model in auth reducer
     dispatch({ type: FETCH_USER, payload: res.data });
-  };
+};
+
+//called with values - for submitting survey
+export const submitSurvey = values  => async dispatch =>  {
+  
+  //post request - submit form
+  const res = await axios.post("/api/surveys", values);
+
+  //res.data is user data - update user model in auth reducer
+  dispatch({ type: FETCH_USER, payload: res.data });
+  
+};
