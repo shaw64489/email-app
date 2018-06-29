@@ -24,12 +24,16 @@ export const handleToken = token => async dispatch => {
 };
 
 //called with values - for submitting survey
-export const submitSurvey = values  => async dispatch =>  {
+//use history object to naviagate around the application
+export const submitSurvey = (values, history)  => async dispatch =>  {
   
   //post request - submit form
   const res = await axios.post("/api/surveys", values);
 
+  //reroute on submit
+  history.push('/surveys')
+
   //res.data is user data - update user model in auth reducer
   dispatch({ type: FETCH_USER, payload: res.data });
-  
+
 };

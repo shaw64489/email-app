@@ -6,14 +6,17 @@ import { connect } from 'react-redux';
 
 //import survey fields
 import formFields from './formFields';
-
+//for routing on submit
+import { withRouter } from 'react-router-dom';
 //import action for submitting survey
 import * as actions from '../../actions';
 import { submitSurvey } from '../../actions';
 
+
 //prop - oncancel - for cancel button
 //submitSurvey action passed as prop
-const SurveyFormReview = ({ onCancel, formValues, submitSurvey }) => {
+//use history object to naviagate around the application
+const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
 
     //define fields to insert into return statement
     //for every element in form fields
@@ -44,7 +47,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey }) => {
             </button>
             <button 
                 className="green white-text btn-flat right"
-                onClick={() => submitSurvey(formValues)}
+                onClick={() => submitSurvey(formValues, history)}
             >
                 Send Survey
                 <i className="material-icons right">email</i>
@@ -66,4 +69,5 @@ function mapStateToProps(state) {
 
 //conect to pull values out of redux store
 //second arg - list of actions
-export default connect(mapStateToProps, actions)(SurveyFormReview);
+//wrap component with withRouter helper
+export default connect(mapStateToProps, actions)(withRouter(SurveyFormReview));
