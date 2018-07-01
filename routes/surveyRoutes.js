@@ -18,6 +18,11 @@ module.exports = app => {
         res.send('Thanks for voting!');
     });
 
+    app.post('/api/surveys/webhooks', (req, res) => {
+        console.log(req.body);
+        res.send({});
+    });
+
     //post - create survey route
     //make sure user is logged in - middleware
     //make sure user has enough credits - middleware
