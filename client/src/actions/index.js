@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER } from "./types";
+import { FETCH_USER, FETCH_SURVEYS } from "./types";
 
 //action creator - fetch user
 //return function - when function executed it will make the request
@@ -35,5 +35,16 @@ export const submitSurvey = (values, history)  => async dispatch =>  {
 
   //res.data is user data - update user model in auth reducer
   dispatch({ type: FETCH_USER, payload: res.data });
+
+};
+
+//for gathering list of surveys
+export const fetchSurveys = ()  => async dispatch =>  {
+  
+  //get request - get surveys
+  const res = await axios.get("/api/surveys");
+
+  //payload is array of all the surveys
+  dispatch({ type: FETCH_SURVEYS, payload: res.data });
 
 };

@@ -3,6 +3,8 @@ import React from 'react';
 //instead of anchor tags client side
 import { Link } from 'react-router-dom';
 
+import SurveyList from './surveys/SurveyList';
+
 //functional component
 const Dashboard = () => {
 
@@ -10,7 +12,7 @@ const Dashboard = () => {
     return (
 
         <div>
-            Dashboard
+            <SurveyList />
             <div className="fixed-action-btn">
                 <Link to="/surveys/new" className="btn-floating btn-large red">
                     <i className="large material-icons">add</i>

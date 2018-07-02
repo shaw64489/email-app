@@ -16,8 +16,22 @@ const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 const Survey = mongoose.model("surveys");
 
 module.exports = app => {
+
+  //route to display list of surveys for user
+  //authenticate with middleware
+  app.get("/api/surveys", requireLogin, async (req, res) => {
+    
+    //find all surveys that match user
+    const surveys = await Survey.find({ _user: req.user.id })
+        //do not inlcude recipients
+        .select({ recipients: false });
+
+    //pass response with surveys
+    res.send(surveys);
+  });
+
   //route for users that click on feedback link
-  app.get("/api/surveys/thanks", (req, res) => {
+  app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send("Thanks for voting!");
   });
 
@@ -25,8 +39,7 @@ module.exports = app => {
   app.post("/api/surveys/webhooks", (req, res) => {
     const p = new Path("/api/surveys/:surveyId/:choice");
 
-    const events = _
-      .chain(req.body)
+    _.chain(req.body)
       //map over list of events
       //for every element in req.body run function
       //extract path and data we need
@@ -44,13 +57,13 @@ module.exports = app => {
       //grab unique events - by email/surveyId properties
       //remove duplicates
       .uniqBy("email", "surveyId")
-      .each(event => {
+      .each(({ surveyId, email, choice }) => {
         //find and update one record in survey that matches
         //id - for every survey look at recipients
         //find with correct email and response property - not yet responded to survey
         Survey.updateOne(
           {
-            id: surveyId,
+            _id: surveyId,
             recipients: {
               $elemMatch: { email: email, responded: false }
             }
@@ -61,14 +74,13 @@ module.exports = app => {
             //increment vote choice by one
             $inc: { [choice]: 1 },
             //update one of the properties in survey record by recipients subdocument collection
-            $set: { "recipients.$.responded": true }
+            $set: { "recipients.$.responded": true },
+            lastResponded: new Date()
           }
-        );
+        ).exec();
       })
       //pull out underlying array
       .value();
-
-    console.log(events);
 
     res.send({});
   });
